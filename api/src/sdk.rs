@@ -8,6 +8,7 @@ use steel::*;
 
 use crate::{consts::*, instruction::*, state::*};
 
+/// Builds an instruction to initialize the vault and stORE mint.
 pub fn init(signer: Pubkey) -> Instruction {
     let vault_address = vault_pda().0;
     let vault_tokens = get_associated_token_address(&vault_address, &MINT_ADDRESS);
@@ -38,8 +39,9 @@ pub fn init(signer: Pubkey) -> Instruction {
     }
 }
 
-// let [signer_info, payer_info, sender_ore_info, sender_store_info, ore_mint_info, store_mint_info, stake_info, stake_tokens_info, treasury_info, treasury_tokens_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, ore_program] =
-
+/// Builds an instruction to wrap ORE into stORE tokens.
+///
+/// Deposits the specified amount of ORE into the vault and mints stORE to the signer.
 pub fn wrap(signer: Pubkey, payer: Pubkey, amount: u64) -> Instruction {
     let sender_ore_address = get_associated_token_address(&signer, &MINT_ADDRESS);
     let sender_store_address = get_associated_token_address(&signer, &STORE_MINT_ADDRESS);
@@ -78,6 +80,9 @@ pub fn wrap(signer: Pubkey, payer: Pubkey, amount: u64) -> Instruction {
     }
 }
 
+/// Builds an instruction to unwrap stORE back into ORE tokens.
+///
+/// Burns the specified amount of stORE and returns the corresponding ORE to the signer.
 pub fn unwrap(signer: Pubkey, payer: Pubkey, amount: u64) -> Instruction {
     let sender_ore_address = get_associated_token_address(&signer, &MINT_ADDRESS);
     let sender_store_address = get_associated_token_address(&signer, &STORE_MINT_ADDRESS);
@@ -116,7 +121,9 @@ pub fn unwrap(signer: Pubkey, payer: Pubkey, amount: u64) -> Instruction {
     }
 }
 
-// let [signer_info, ore_mint_info, stake_info, stake_tokens_info, treasury_info, treasury_tokens_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, ore_program] =
+/// Builds an instruction to compound staking rewards.
+///
+/// Claims pending ORE staking rewards and re-stakes them to increase vault value.
 pub fn compound(signer: Pubkey) -> Instruction {
     let ore_mint_address = MINT_ADDRESS;
     let treasury_address = treasury_pda().0;
