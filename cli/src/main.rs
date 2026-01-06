@@ -100,43 +100,33 @@ async fn compound(
 }
 
 async fn rate(rpc: &RpcClient) -> Result<(), anyhow::Error> {
+    // Fetch stake account..
     let vault_address = ore_lst_api::state::vault_pda().0;
     let stake_address = ore_api::state::stake_pda(vault_address).0;
     let stake_data = rpc.get_account_data(&stake_address).await.unwrap();
     let mut stake = *Stake::try_from_bytes(&stake_data).unwrap();
+
+    // Fetch treasury account.
     let treasury_address = ore_api::state::treasury_pda().0;
     let treasury_data = rpc.get_account_data(&treasury_address).await.unwrap();
     let treasury = *Treasury::try_from_bytes(&treasury_data).unwrap();
+
+    // Update stake rewards for total deposits.
     stake.update_rewards(&treasury);
     let compounded_balance = stake.balance + stake.rewards;
+
+    // Get stORE supply.
     let store_mint_supply = rpc.get_token_supply(&STORE_MINT_ADDRESS).await.unwrap();
     let store_mint_supply_u64 = store_mint_supply.amount.parse::<u64>().unwrap();
 
-    println!("Vault: {}", vault_address);
-    println!("Stake: {}", stake_address);
-    println!("Treasury: {}", treasury_address);
-    let treasury_tokens_address = spl_associated_token_account::get_associated_token_address(
-        &treasury_address,
-        &ore_api::consts::MINT_ADDRESS,
-    );
-    let vault_tokens_address = spl_associated_token_account::get_associated_token_address(
-        &vault_address,
-        &ore_api::consts::MINT_ADDRESS,
-    );
-    let stake_tokens_address = spl_associated_token_account::get_associated_token_address(
-        &stake_address,
-        &ore_api::consts::MINT_ADDRESS,
-    );
-    println!("Treasury Tokens: {}", treasury_tokens_address);
-    println!("Vault Tokens: {}", vault_tokens_address);
-    println!("Stake Tokens: {}", stake_tokens_address);
-
     // Get new ORE:stORE ratio.
-    let ratio = if store_mint_supply_u64 > 0 {
-        Numeric::from_fraction(compounded_balance, store_mint_supply_u64)
-    } else {
+    let ratio = if store_mint_supply_u64 == 0 || compounded_balance == 0 {
         Numeric::from_u64(1)
+    } else {
+        Numeric::from_fraction(compounded_balance, store_mint_supply_u64)
     };
+
+    // Print results.
     println!(
         "Stake: {} ORE",
         amount_to_ui_amount(compounded_balance, TOKEN_DECIMALS)
