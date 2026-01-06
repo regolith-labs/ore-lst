@@ -70,7 +70,7 @@ pub fn process_wrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResult 
 
     // Depsoit into vault.
     invoke_signed(
-        &ore_api::sdk::deposit(*vault_info.key, *signer_info.key, 0, 0),
+        &ore_api::sdk::deposit(*vault_info.key, *signer_info.key, u64::MAX, 0),
         &[
             vault_info.clone(),
             signer_info.clone(),
