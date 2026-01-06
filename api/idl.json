@@ -13,7 +13,7 @@
                 "value": 1
             },
             "docs": [
-                "Compounds yield in the vault."
+                "Compounds yield into vault."
             ],
             "accounts": [
                 {
@@ -23,45 +23,39 @@
                 },
                 {
                     "name": "oreMint",
-                    "isMut": false,
+                    "isMut": true,
                     "isSigner": false,
                     "address": "oreoU2P8bN6jkk3jbaiVxYnG1dCXcYxwhwyK9jSybcp"
                 },
                 {
                     "name": "stake",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "9Hd7Lwk9gjYRMb5PdYArWrq5JNeEj6P4b3X2ef4CaMcG"
+                    "isSigner": false
                 },
                 {
                     "name": "stakeTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "7tf8gVCb3YNeyjrZjYuzDY89mduCJVtM82czw5L1RqzF"
+                    "isSigner": false
                 },
                 {
                     "name": "treasury",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "45db2FSR4mcXdSVVZbKbwojU6uYDpMyhpEi7cC8nHaWG"
+                    "isSigner": false
                 },
                 {
                     "name": "treasuryTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "GwZS8yBuPPkPgY4uh7eEhHN5EEdpkf7EBZ1za6nuP3wF"
+                    "isSigner": false
                 },
                 {
                     "name": "vault",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "7taXpXz6eqYzscXEi1d1fgwATQMqAR6Nku9pJCjb8gQN"
+                    "isSigner": false
                 },
                 {
                     "name": "vaultTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "C1ZiFq8DocfTFxVUe75pqhbmaR8a7sKPsT9A48jmtzzr"
+                    "isSigner": false
                 },
                 {
                     "name": "systemProgram",
@@ -85,7 +79,7 @@
                     "name": "oreProgram",
                     "isMut": false,
                     "isSigner": false,
-                    "address": "oreV3EG1i9BEgiAJ8b177Z2S2rMarzak4NMv1kULvWv"
+                    "address": "oreV2ySZwJgP2WVpYYw3MrN1YFpXgfRdW85nv2g34a3"
                 }
             ],
             "args": []
@@ -108,7 +102,7 @@
                 {
                     "name": "payer",
                     "isMut": true,
-                    "isSigner": false
+                    "isSigner": true
                 },
                 {
                     "name": "senderOre",
@@ -128,45 +122,39 @@
                 },
                 {
                     "name": "storeMint",
-                    "isMut": false,
+                    "isMut": true,
                     "isSigner": false,
                     "address": "sTorERYB6xAZ1SSbwpK3zoK2EEwbBrc7TZAzg1uCGiH"
                 },
                 {
                     "name": "stake",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "9Hd7Lwk9gjYRMb5PdYArWrq5JNeEj6P4b3X2ef4CaMcG"
+                    "isSigner": false
                 },
                 {
                     "name": "stakeTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "7tf8gVCb3YNeyjrZjYuzDY89mduCJVtM82czw5L1RqzF"
+                    "isSigner": false
                 },
                 {
                     "name": "treasury",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "45db2FSR4mcXdSVVZbKbwojU6uYDpMyhpEi7cC8nHaWG"
+                    "isSigner": false
                 },
                 {
                     "name": "treasuryTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "GwZS8yBuPPkPgY4uh7eEhHN5EEdpkf7EBZ1za6nuP3wF"
+                    "isSigner": false
                 },
                 {
                     "name": "vault",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "7taXpXz6eqYzscXEi1d1fgwATQMqAR6Nku9pJCjb8gQN"
+                    "isSigner": false
                 },
                 {
                     "name": "vaultTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "C1ZiFq8DocfTFxVUe75pqhbmaR8a7sKPsT9A48jmtzzr"
+                    "isSigner": false
                 },
                 {
                     "name": "systemProgram",
@@ -190,7 +178,7 @@
                     "name": "oreProgram",
                     "isMut": false,
                     "isSigner": false,
-                    "address": "oreV3EG1i9BEgiAJ8b177Z2S2rMarzak4NMv1kULvWv"
+                    "address": "oreV2ySZwJgP2WVpYYw3MrN1YFpXgfRdW85nv2g34a3"
                 }
             ],
             "args": [
@@ -218,7 +206,7 @@
                 {
                     "name": "payer",
                     "isMut": true,
-                    "isSigner": false
+                    "isSigner": true
                 },
                 {
                     "name": "senderOre",
@@ -238,45 +226,39 @@
                 },
                 {
                     "name": "storeMint",
-                    "isMut": false,
+                    "isMut": true,
                     "isSigner": false,
                     "address": "sTorERYB6xAZ1SSbwpK3zoK2EEwbBrc7TZAzg1uCGiH"
                 },
                 {
                     "name": "stake",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "9Hd7Lwk9gjYRMb5PdYArWrq5JNeEj6P4b3X2ef4CaMcG"
+                    "isSigner": false
                 },
                 {
                     "name": "stakeTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "7tf8gVCb3YNeyjrZjYuzDY89mduCJVtM82czw5L1RqzF"
+                    "isSigner": false
                 },
                 {
                     "name": "treasury",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "45db2FSR4mcXdSVVZbKbwojU6uYDpMyhpEi7cC8nHaWG"
+                    "isSigner": false
                 },
                 {
                     "name": "treasuryTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "GwZS8yBuPPkPgY4uh7eEhHN5EEdpkf7EBZ1za6nuP3wF"
+                    "isSigner": false
                 },
                 {
                     "name": "vault",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "7taXpXz6eqYzscXEi1d1fgwATQMqAR6Nku9pJCjb8gQN"
+                    "isSigner": false
                 },
                 {
                     "name": "vaultTokens",
                     "isMut": true,
-                    "isSigner": false,
-                    "address": "C1ZiFq8DocfTFxVUe75pqhbmaR8a7sKPsT9A48jmtzzr"
+                    "isSigner": false
                 },
                 {
                     "name": "systemProgram",
@@ -300,7 +282,7 @@
                     "name": "oreProgram",
                     "isMut": false,
                     "isSigner": false,
-                    "address": "oreV3EG1i9BEgiAJ8b177Z2S2rMarzak4NMv1kULvWv"
+                    "address": "oreV2ySZwJgP2WVpYYw3MrN1YFpXgfRdW85nv2g34a3"
                 }
             ],
             "args": [
@@ -309,6 +291,102 @@
                     "type": "u64"
                 }
             ]
+        },
+        {
+            "name": "initialize",
+            "discriminant": {
+                "type": "u8",
+                "value": 100
+            },
+            "docs": [
+                "Initializes the program. Admin only."
+            ],
+            "accounts": [
+                {
+                    "name": "signer",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "oreMint",
+                    "isMut": true,
+                    "isSigner": false,
+                    "address": "oreoU2P8bN6jkk3jbaiVxYnG1dCXcYxwhwyK9jSybcp"
+                },
+                {
+                    "name": "storeMint",
+                    "isMut": true,
+                    "isSigner": false,
+                    "address": "sTorERYB6xAZ1SSbwpK3zoK2EEwbBrc7TZAzg1uCGiH"
+                },
+                {
+                    "name": "metadata",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "stake",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "stakeTokens",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "treasury",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vault",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vaultTokens",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false,
+                    "address": "11111111111111111111111111111111"
+                },
+                {
+                    "name": "tokenProgram",
+                    "isMut": false,
+                    "isSigner": false,
+                    "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+                },
+                {
+                    "name": "associatedTokenProgram",
+                    "isMut": false,
+                    "isSigner": false,
+                    "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+                },
+                {
+                    "name": "metadataProgram",
+                    "isMut": false,
+                    "isSigner": false,
+                    "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+                },
+                {
+                    "name": "oreProgram",
+                    "isMut": false,
+                    "isSigner": false,
+                    "address": "oreV2ySZwJgP2WVpYYw3MrN1YFpXgfRdW85nv2g34a3"
+                },
+                {
+                    "name": "rentSysvar",
+                    "isMut": false,
+                    "isSigner": false,
+                    "address": "SysvarRent111111111111111111111111111111111"
+                }
+            ],
+            "args": []
         }
     ],
     "accounts": [
@@ -332,5 +410,13 @@
                 "fields": []
             }
         }
-    ]
+    ],
+    "errors": [
+        {
+            "code": 0,
+            "name": "Dummy",
+            "msg": "Dummy"
+        }
+    ],
+    "events": []
 }
