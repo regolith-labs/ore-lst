@@ -112,6 +112,25 @@ async fn rate(rpc: &RpcClient) -> Result<(), anyhow::Error> {
     let store_mint_supply = rpc.get_token_supply(&STORE_MINT_ADDRESS).await.unwrap();
     let store_mint_supply_u64 = store_mint_supply.amount.parse::<u64>().unwrap();
 
+    println!("Vault: {}", vault_address);
+    println!("Stake: {}", stake_address);
+    println!("Treasury: {}", treasury_address);
+    let treasury_tokens_address = spl_associated_token_account::get_associated_token_address(
+        &treasury_address,
+        &ore_api::consts::MINT_ADDRESS,
+    );
+    let vault_tokens_address = spl_associated_token_account::get_associated_token_address(
+        &vault_address,
+        &ore_api::consts::MINT_ADDRESS,
+    );
+    let stake_tokens_address = spl_associated_token_account::get_associated_token_address(
+        &stake_address,
+        &ore_api::consts::MINT_ADDRESS,
+    );
+    println!("Treasury Tokens: {}", treasury_tokens_address);
+    println!("Vault Tokens: {}", vault_tokens_address);
+    println!("Stake Tokens: {}", stake_tokens_address);
+
     // Get new ORE:stORE ratio.
     let ratio = if store_mint_supply_u64 > 0 {
         Numeric::from_fraction(compounded_balance, store_mint_supply_u64)

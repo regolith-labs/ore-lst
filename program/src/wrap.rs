@@ -68,7 +68,7 @@ pub fn process_wrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResult 
         &[VAULT],
     )?;
 
-    // Depsoit into vault.
+    // Compound yield into vault.
     invoke_signed(
         &ore_api::sdk::deposit(*vault_info.key, *signer_info.key, u64::MAX, 0),
         &[

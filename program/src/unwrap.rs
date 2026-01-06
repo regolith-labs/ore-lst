@@ -5,7 +5,7 @@ use ore_api::{
 use ore_lst_api::prelude::*;
 use steel::*;
 
-/// Unwraps staked ORE and burns stORE.
+/// Withdraws ORE from the stake account and burns stORE.
 pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResult {
     // Parse data.
     let args = Unwrap::try_from_bytes(data)?;

@@ -5,7 +5,7 @@ use ore_lst_api::{
 };
 use steel::*;
 
-/// Deposits ORE in the vault.
+/// Initialize the program.
 pub fn process_initialize(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramResult {
     // Load accounts.
     let [signer_info, ore_mint_info, store_mint_info, metadata_info, stake_info, stake_tokens_info, treasury_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, metadata_program, ore_program, rent_sysvar] =
