@@ -37,7 +37,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
     ore_program.is_program(&ore_api::ID)?;
 
     // Create sender ore info.
-    if sender_store_info.data_is_empty() {
+    if sender_ore_info.data_is_empty() {
         create_associated_token_account(
             payer_info,
             signer_info,
@@ -48,7 +48,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
             associated_token_program,
         )?;
     } else {
-        sender_store_info.as_associated_token_account(signer_info.key, &STORE_MINT_ADDRESS)?;
+        sender_ore_info.as_associated_token_account(signer_info.key, &MINT_ADDRESS)?;
     }
 
     // Claim yield.
