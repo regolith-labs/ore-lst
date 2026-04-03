@@ -1,4 +1,4 @@
-use ore_api::{
+use ore_stake_api::{
     consts::MINT_ADDRESS,
     state::{stake_pda, treasury_pda},
 };
@@ -32,7 +32,7 @@ pub fn init(signer: Pubkey) -> Instruction {
             AccountMeta::new_readonly(spl_token::ID, false),
             AccountMeta::new_readonly(spl_associated_token_account::ID, false),
             AccountMeta::new_readonly(mpl_token_metadata::ID, false),
-            AccountMeta::new_readonly(ore_api::ID, false),
+            AccountMeta::new_readonly(ore_stake_api::ID, false),
             AccountMeta::new_readonly(sysvar::rent::ID, false),
         ],
         data: Initialize {}.to_bytes(),
@@ -71,7 +71,7 @@ pub fn wrap(signer: Pubkey, payer: Pubkey, amount: u64) -> Instruction {
             AccountMeta::new_readonly(system_program::ID, false),
             AccountMeta::new_readonly(spl_token::ID, false),
             AccountMeta::new_readonly(spl_associated_token_account::ID, false),
-            AccountMeta::new_readonly(ore_api::ID, false),
+            AccountMeta::new_readonly(ore_stake_api::ID, false),
         ],
         data: Wrap {
             amount: amount.to_le_bytes(),
@@ -112,7 +112,7 @@ pub fn unwrap(signer: Pubkey, payer: Pubkey, amount: u64) -> Instruction {
             AccountMeta::new_readonly(system_program::ID, false),
             AccountMeta::new_readonly(spl_token::ID, false),
             AccountMeta::new_readonly(spl_associated_token_account::ID, false),
-            AccountMeta::new_readonly(ore_api::ID, false),
+            AccountMeta::new_readonly(ore_stake_api::ID, false),
         ],
         data: Unwrap {
             amount: amount.to_le_bytes(),
@@ -146,7 +146,7 @@ pub fn compound(signer: Pubkey) -> Instruction {
             AccountMeta::new_readonly(system_program::ID, false),
             AccountMeta::new_readonly(spl_token::ID, false),
             AccountMeta::new_readonly(spl_associated_token_account::ID, false),
-            AccountMeta::new_readonly(ore_api::ID, false),
+            AccountMeta::new_readonly(ore_stake_api::ID, false),
         ],
         data: Compound {}.to_bytes(),
     }
