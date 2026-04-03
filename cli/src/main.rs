@@ -1,8 +1,8 @@
-use ore_api::{
+use ore_lst_api::consts::STORE_MINT_ADDRESS;
+use ore_stake_api::{
     consts::TOKEN_DECIMALS,
     state::{Stake, Treasury},
 };
-use ore_lst_api::consts::STORE_MINT_ADDRESS;
 use solana_account_decoder::UiAccountEncoding;
 use solana_client::{
     client_error::{reqwest::StatusCode, ClientErrorKind},
@@ -102,12 +102,12 @@ async fn compound(
 async fn rate(rpc: &RpcClient) -> Result<(), anyhow::Error> {
     // Fetch stake account..
     let vault_address = ore_lst_api::state::vault_pda().0;
-    let stake_address = ore_api::state::stake_pda(vault_address).0;
+    let stake_address = ore_stake_api::state::stake_pda(vault_address).0;
     let stake_data = rpc.get_account_data(&stake_address).await.unwrap();
     let mut stake = *Stake::try_from_bytes(&stake_data).unwrap();
 
     // Fetch treasury account.
-    let treasury_address = ore_api::state::treasury_pda().0;
+    let treasury_address = ore_stake_api::state::treasury_pda().0;
     let treasury_data = rpc.get_account_data(&treasury_address).await.unwrap();
     let treasury = *Treasury::try_from_bytes(&treasury_data).unwrap();
 

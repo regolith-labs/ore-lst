@@ -1,8 +1,8 @@
-use ore_api::{
+use ore_lst_api::prelude::*;
+use ore_stake_api::{
     consts::MINT_ADDRESS,
     state::{Stake, Treasury},
 };
-use ore_lst_api::prelude::*;
 use steel::*;
 
 /// Withdraws ORE from the stake account and burns stORE.
@@ -12,7 +12,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
     let amount = u64::from_le_bytes(args.amount);
 
     // Load accounts.
-    let [signer_info, payer_info, sender_ore_info, sender_store_info, ore_mint_info, store_mint_info, stake_info, stake_tokens_info, treasury_info, treasury_tokens_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, ore_program] =
+    let [signer_info, payer_info, sender_ore_info, sender_store_info, ore_mint_info, store_mint_info, stake_info, stake_tokens_info, treasury_info, treasury_tokens_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, ore_stake_program] =
         accounts
     else {
         return Err(ProgramError::NotEnoughAccountKeys);
@@ -24,17 +24,17 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
     ore_mint_info.has_address(&MINT_ADDRESS)?.as_mint()?;
     let store_mint = store_mint_info.as_mint()?;
     stake_info
-        .as_account::<Stake>(&ore_api::ID)?
+        .as_account::<Stake>(&ore_stake_api::ID)?
         .assert(|s| s.authority == *vault_info.key)?;
     stake_tokens_info.as_associated_token_account(stake_info.key, &MINT_ADDRESS)?;
-    treasury_info.as_account::<Treasury>(&ore_api::ID)?;
+    treasury_info.as_account::<Treasury>(&ore_stake_api::ID)?;
     treasury_tokens_info.as_associated_token_account(treasury_info.key, &MINT_ADDRESS)?;
     vault_info.as_account_mut::<Vault>(&ore_lst_api::ID)?;
     vault_tokens_info.as_associated_token_account(vault_info.key, &MINT_ADDRESS)?;
     system_program.is_program(&system_program::ID)?;
     token_program.is_program(&spl_token::ID)?;
     associated_token_program.is_program(&spl_associated_token_account::ID)?;
-    ore_program.is_program(&ore_api::ID)?;
+    ore_stake_program.is_program(&ore_stake_api::ID)?;
 
     // Create sender ore info.
     if sender_ore_info.data_is_empty() {
@@ -53,7 +53,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
 
     // Claim yield.
     invoke_signed(
-        &ore_api::sdk::claim_yield(*vault_info.key, u64::MAX),
+        &ore_stake_api::sdk::claim_yield(*vault_info.key, u64::MAX),
         &[
             vault_info.clone(),
             ore_mint_info.clone(),
@@ -71,7 +71,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
 
     // Compound yield into vault.
     invoke_signed(
-        &ore_api::sdk::deposit(*vault_info.key, *signer_info.key, u64::MAX, 0),
+        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, u64::MAX, 0),
         &[
             vault_info.clone(),
             signer_info.clone(),
@@ -90,7 +90,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
 
     // Parse stake account.
     let stake = stake_info
-        .as_account::<Stake>(&ore_api::ID)?
+        .as_account::<Stake>(&ore_stake_api::ID)?
         .assert(|s| s.authority == *vault_info.key)?;
 
     // Get new ORE:stORE ratio.
@@ -113,7 +113,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
     // Withdraw ORE tokens from stake account.
     let redeemable_amount = (Numeric::from_u64(amount) * ratio).to_u64();
     invoke_signed(
-        &ore_api::sdk::withdraw(*vault_info.key, redeemable_amount),
+        &ore_stake_api::sdk::withdraw(*vault_info.key, redeemable_amount),
         &[
             vault_info.clone(),
             ore_mint_info.clone(),

@@ -1,21 +1,22 @@
-use ore_api::consts::MINT_ADDRESS;
 use ore_lst_api::{
     consts::{STORE_MINT_ADDRESS, VAULT},
     state::{vault_pda, Vault},
 };
+use ore_stake_api::consts::MINT_ADDRESS;
+use solana_program::pubkey;
 use steel::*;
+
+pub const ADMIN_ADDRESS: Pubkey = pubkey!("HBUh9g46wk2X89CvaNN15UmsznP59rh6od1h8JwYAopk");
 
 /// Initialize the program.
 pub fn process_initialize(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramResult {
     // Load accounts.
-    let [signer_info, ore_mint_info, store_mint_info, metadata_info, stake_info, stake_tokens_info, treasury_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, metadata_program, ore_program, rent_sysvar] =
+    let [signer_info, ore_mint_info, store_mint_info, metadata_info, stake_info, stake_tokens_info, treasury_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, metadata_program, ore_stake_program, rent_sysvar] =
         accounts
     else {
         return Err(ProgramError::NotEnoughAccountKeys);
     };
-    signer_info
-        .is_signer()?
-        .has_address(&ore_api::consts::ADMIN_ADDRESS)?;
+    signer_info.is_signer()?.has_address(&ADMIN_ADDRESS)?;
     ore_mint_info.has_address(&MINT_ADDRESS)?.as_mint()?;
     store_mint_info
         .has_address(&STORE_MINT_ADDRESS)?
@@ -25,7 +26,7 @@ pub fn process_initialize(accounts: &[AccountInfo<'_>], _data: &[u8]) -> Program
     system_program.is_program(&system_program::ID)?;
     token_program.is_program(&spl_token::ID)?;
     associated_token_program.is_program(&spl_associated_token_account::ID)?;
-    ore_program.is_program(&ore_api::ID)?;
+    ore_stake_program.is_program(&ore_stake_api::ID)?;
     rent_sysvar.is_sysvar(&sysvar::rent::ID)?;
 
     // Initialize mint metadata
@@ -77,7 +78,7 @@ pub fn process_initialize(accounts: &[AccountInfo<'_>], _data: &[u8]) -> Program
 
     // Create stake account.
     invoke_signed(
-        &ore_api::sdk::deposit(*vault_info.key, *signer_info.key, 0, 0),
+        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, 0, 0),
         &[
             vault_info.clone(),
             signer_info.clone(),
