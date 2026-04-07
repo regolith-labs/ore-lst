@@ -30,7 +30,7 @@ pub fn process_compound(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramRe
 
     // Claim yield.
     invoke_signed(
-        &ore_stake_api::sdk::claim_yield(*vault_info.key, u64::MAX),
+        &ore_stake_api::sdk::claim(*vault_info.key, u64::MAX),
         &[
             vault_info.clone(),
             ore_mint_info.clone(),
@@ -41,6 +41,7 @@ pub fn process_compound(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramRe
             system_program.clone(),
             token_program.clone(),
             associated_token_program.clone(),
+            ore_stake_program.clone(),
         ],
         &ore_lst_api::ID,
         &[VAULT],
@@ -48,7 +49,7 @@ pub fn process_compound(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramRe
 
     // Compound yield into vault.
     invoke_signed(
-        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, u64::MAX, 0),
+        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, u64::MAX, 0, 0),
         &[
             vault_info.clone(),
             signer_info.clone(),
@@ -60,6 +61,7 @@ pub fn process_compound(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramRe
             system_program.clone(),
             token_program.clone(),
             associated_token_program.clone(),
+            ore_stake_program.clone(),
         ],
         &ore_lst_api::ID,
         &[VAULT],

@@ -78,7 +78,7 @@ pub fn process_initialize(accounts: &[AccountInfo<'_>], _data: &[u8]) -> Program
 
     // Create stake account.
     invoke_signed(
-        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, 0, 0),
+        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, 0, 0, 0),
         &[
             vault_info.clone(),
             signer_info.clone(),
@@ -90,6 +90,7 @@ pub fn process_initialize(accounts: &[AccountInfo<'_>], _data: &[u8]) -> Program
             system_program.clone(),
             token_program.clone(),
             associated_token_program.clone(),
+            ore_stake_program.clone(),
         ],
         &ore_lst_api::ID,
         &[VAULT],
