@@ -8,8 +8,8 @@ edition = "2021"
 license = "Apache-2.0"
 homepage = "https://ore.supply"
 description = "ORE liquid staking token."
-documentation = "https://docs.rs/ore-api/latest/ore_api/"
-repository = "https://github.com/regolith-labs/ore"
+documentation = "https://github.com/regolith-labs/ore-lst#readme"
+repository = "https://github.com/regolith-labs/ore-lst"
 readme = "./README.md"
 keywords = ["solana"]
 
