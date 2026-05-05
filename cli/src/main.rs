@@ -1,7 +1,7 @@
 use ore_lst_api::consts::STORE_MINT_ADDRESS;
 use ore_stake_api::{
     consts::TOKEN_DECIMALS,
-    state::{Stake, Treasury},
+    state::{Stake, Treasury, Vesting},
 };
 use solana_account_decoder::UiAccountEncoding;
 use solana_client::{
@@ -19,7 +19,7 @@ use solana_sdk::{
     transaction::{Transaction, VersionedTransaction},
 };
 use spl_token::{amount_to_ui_amount, ui_amount_to_amount};
-use steel::{AccountDeserialize, Discriminator, Instruction, Numeric};
+use steel::{AccountDeserialize, Clock, Discriminator, Instruction, Numeric};
 
 #[tokio::main]
 async fn main() {
@@ -109,10 +109,18 @@ async fn rate(rpc: &RpcClient) -> Result<(), anyhow::Error> {
     // Fetch treasury account.
     let treasury_address = ore_stake_api::state::treasury_pda().0;
     let treasury_data = rpc.get_account_data(&treasury_address).await.unwrap();
-    let treasury = *Treasury::try_from_bytes(&treasury_data).unwrap();
+    let mut treasury = *Treasury::try_from_bytes(&treasury_data).unwrap();
+
+    // Fetch vesting account.
+    let vesting_address = ore_stake_api::state::vesting_pda().0;
+    let vesting_data = rpc.get_account_data(&vesting_address).await.unwrap();
+    let mut vesting = *Vesting::try_from_bytes(&vesting_data).unwrap();
+
+    // Get clock
+    let clock = get_clock(rpc).await.unwrap();
 
     // Update stake rewards for total deposits.
-    stake.update_rewards(&treasury);
+    stake.update_rewards(&clock, &mut treasury, &mut vesting);
     let compounded_balance = stake.balance + stake.rewards;
 
     // Get stORE supply.
@@ -135,6 +143,12 @@ async fn rate(rpc: &RpcClient) -> Result<(), anyhow::Error> {
     println!("--------------------------------");
     println!("1 stORE = {:.11} ORE", ratio.to_i80f48().to_num::<f64>());
     Ok(())
+}
+
+async fn get_clock(rpc: &RpcClient) -> Result<Clock, anyhow::Error> {
+    let data = rpc.get_account_data(&solana_sdk::sysvar::clock::ID).await?;
+    let clock = bincode::deserialize::<Clock>(&data)?;
+    Ok(clock)
 }
 
 #[allow(dead_code)]

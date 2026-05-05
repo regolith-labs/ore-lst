@@ -12,7 +12,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
     let amount = u64::from_le_bytes(args.amount);
 
     // Load accounts.
-    let [signer_info, payer_info, sender_ore_info, sender_store_info, ore_mint_info, store_mint_info, stake_info, stake_tokens_info, treasury_info, treasury_tokens_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, ore_stake_program] =
+    let [signer_info, payer_info, sender_ore_info, sender_store_info, ore_mint_info, store_mint_info, stake_info, stake_tokens_info, treasury_info, treasury_tokens_info, vault_info, vault_tokens_info, vesting_info, system_program, token_program, associated_token_program, ore_stake_program] =
         accounts
     else {
         return Err(ProgramError::NotEnoughAccountKeys);
@@ -61,6 +61,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
             stake_info.clone(),
             treasury_info.clone(),
             treasury_tokens_info.clone(),
+            vesting_info.clone(),
             system_program.clone(),
             token_program.clone(),
             associated_token_program.clone(),
@@ -81,6 +82,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
             stake_info.clone(),
             stake_tokens_info.clone(),
             treasury_info.clone(),
+            vesting_info.clone(),
             system_program.clone(),
             token_program.clone(),
             associated_token_program.clone(),
@@ -123,6 +125,7 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
             stake_info.clone(),
             stake_tokens_info.clone(),
             treasury_info.clone(),
+            vesting_info.clone(),
             system_program.clone(),
             token_program.clone(),
             associated_token_program.clone(),

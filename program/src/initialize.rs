@@ -11,7 +11,7 @@ pub const ADMIN_ADDRESS: Pubkey = pubkey!("HBUh9g46wk2X89CvaNN15UmsznP59rh6od1h8
 /// Initialize the program.
 pub fn process_initialize(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramResult {
     // Load accounts.
-    let [signer_info, ore_mint_info, store_mint_info, metadata_info, stake_info, stake_tokens_info, treasury_info, vault_info, vault_tokens_info, system_program, token_program, associated_token_program, metadata_program, ore_stake_program, rent_sysvar] =
+    let [signer_info, ore_mint_info, store_mint_info, metadata_info, stake_info, stake_tokens_info, treasury_info, vault_info, vault_tokens_info, vesting_info, system_program, token_program, associated_token_program, metadata_program, ore_stake_program, rent_sysvar] =
         accounts
     else {
         return Err(ProgramError::NotEnoughAccountKeys);
@@ -87,6 +87,7 @@ pub fn process_initialize(accounts: &[AccountInfo<'_>], _data: &[u8]) -> Program
             stake_info.clone(),
             stake_tokens_info.clone(),
             treasury_info.clone(),
+            vesting_info.clone(),
             system_program.clone(),
             token_program.clone(),
             associated_token_program.clone(),

@@ -58,6 +58,11 @@
                     "isSigner": false
                 },
                 {
+                    "name": "vesting",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
                     "name": "systemProgram",
                     "isMut": false,
                     "isSigner": false,
@@ -153,6 +158,11 @@
                 },
                 {
                     "name": "vaultTokens",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vesting",
                     "isMut": true,
                     "isSigner": false
                 },
@@ -261,6 +271,11 @@
                     "isSigner": false
                 },
                 {
+                    "name": "vesting",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
                     "name": "systemProgram",
                     "isMut": false,
                     "isSigner": false,
@@ -346,6 +361,11 @@
                 },
                 {
                     "name": "vaultTokens",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "vesting",
                     "isMut": true,
                     "isSigner": false
                 },
