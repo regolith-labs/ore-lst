@@ -64,6 +64,7 @@ pub fn process_wrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResult 
             system_program.clone(),
             token_program.clone(),
             associated_token_program.clone(),
+            ore_stake_program.clone(),
         ],
         &ore_lst_api::ID,
         &[VAULT],
