@@ -1,5 +1,5 @@
 {
-    "version": "0.2.0",
+    "version": "0.2.3",
     "name": "ore-lst",
     "metadata": {
         "address": "LStwN2E5Uw6MCtuxHRLhy8RY9hxqW2XRpLzettb696y",
@@ -81,10 +81,10 @@
                     "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
                 },
                 {
-                    "name": "oreProgram",
+                    "name": "oreStakeProgram",
                     "isMut": false,
                     "isSigner": false,
-                    "address": "oreV2ySZwJgP2WVpYYw3MrN1YFpXgfRdW85nv2g34a3"
+                    "address": "STkEAu2cEyQp5ktgUauRVq8es6mEP2w6ixw4NEd5tDJ"
                 }
             ],
             "args": []
@@ -185,10 +185,10 @@
                     "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
                 },
                 {
-                    "name": "oreProgram",
+                    "name": "oreStakeProgram",
                     "isMut": false,
                     "isSigner": false,
-                    "address": "oreV2ySZwJgP2WVpYYw3MrN1YFpXgfRdW85nv2g34a3"
+                    "address": "STkEAu2cEyQp5ktgUauRVq8es6mEP2w6ixw4NEd5tDJ"
                 }
             ],
             "args": [
@@ -294,10 +294,10 @@
                     "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
                 },
                 {
-                    "name": "oreProgram",
+                    "name": "oreStakeProgram",
                     "isMut": false,
                     "isSigner": false,
-                    "address": "oreV2ySZwJgP2WVpYYw3MrN1YFpXgfRdW85nv2g34a3"
+                    "address": "STkEAu2cEyQp5ktgUauRVq8es6mEP2w6ixw4NEd5tDJ"
                 }
             ],
             "args": [
@@ -394,10 +394,10 @@
                     "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
                 },
                 {
-                    "name": "oreProgram",
+                    "name": "oreStakeProgram",
                     "isMut": false,
                     "isSigner": false,
-                    "address": "oreV2ySZwJgP2WVpYYw3MrN1YFpXgfRdW85nv2g34a3"
+                    "address": "STkEAu2cEyQp5ktgUauRVq8es6mEP2w6ixw4NEd5tDJ"
                 },
                 {
                     "name": "rentSysvar",
