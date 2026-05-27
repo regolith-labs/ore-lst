@@ -98,15 +98,10 @@ pub fn process_wrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResult 
         .as_account::<Stake>(&ore_stake_api::ID)?
         .assert(|s| s.authority == *vault_info.key)?;
 
-    // Get new ORE:stORE ratio.
-    let ratio = if stake.balance == 0 || store_mint.supply() == 0 {
-        Numeric::from_u64(1)
-    } else {
-        Numeric::from_fraction(store_mint.supply(), stake.balance)
-    };
-
     // Deposit ORE tokens in stake account.
     let amount = sender_ore.amount().min(amount);
+    let mint_amount =
+        Vault::calculate_mint_amount(amount, stake.balance, store_mint.supply());
     transfer(
         signer_info,
         sender_ore_info,
@@ -135,7 +130,6 @@ pub fn process_wrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResult 
     )?;
 
     // Mint new stORE.
-    let mint_amount = (Numeric::from_u64(amount) * ratio).to_u64();
     mint_to_signed(
         store_mint_info,
         sender_store_info,

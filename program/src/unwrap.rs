@@ -99,15 +99,10 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
         .as_account::<Stake>(&ore_stake_api::ID)?
         .assert(|s| s.authority == *vault_info.key)?;
 
-    // Get new ORE:stORE ratio.
-    let ratio = if stake.balance == 0 || store_mint.supply() == 0 {
-        Numeric::from_u64(1)
-    } else {
-        Numeric::from_fraction(stake.balance, store_mint.supply())
-    };
-
     // Burn stORE tokens.
     let amount = sender_store.amount().min(amount);
+    let redeemable_amount =
+        Vault::calculate_redeem_amount(amount, stake.balance, store_mint.supply());
     burn(
         sender_store_info,
         store_mint_info,
@@ -117,7 +112,6 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
     )?;
 
     // Withdraw ORE tokens from stake account.
-    let redeemable_amount = (Numeric::from_u64(amount) * ratio).to_u64();
     invoke_signed(
         &ore_stake_api::sdk::withdraw(*vault_info.key, redeemable_amount),
         &[

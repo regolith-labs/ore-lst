@@ -35,7 +35,7 @@ pub fn init(signer: Pubkey) -> Instruction {
             AccountMeta::new_readonly(ore_stake_api::ID, false),
             AccountMeta::new_readonly(sysvar::rent::ID, false),
         ],
-        data: Initialize {}.to_bytes(),
+        data: Init {}.to_bytes(),
     }
 }
 

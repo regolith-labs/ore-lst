@@ -23,6 +23,7 @@ pub fn process_init(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramResult
     system_program.is_program(&system_program::ID)?;
     token_program.is_program(&spl_token::ID)?;
     associated_token_program.is_program(&spl_associated_token_account::ID)?;
+    metadata_program.is_program(&mpl_token_metadata::ID)?;
     ore_stake_program.is_program(&ore_stake_api::ID)?;
     rent_sysvar.is_sysvar(&sysvar::rent::ID)?;
 

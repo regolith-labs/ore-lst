@@ -20,13 +20,10 @@ pub fn process_instruction(
     let (ix, data) = parse_instruction(&ore_lst_api::ID, program_id, data)?;
 
     match ix {
-        // User
         OreLstInstruction::Compound => process_compound(accounts, data)?,
         OreLstInstruction::Wrap => process_wrap(accounts, data)?,
         OreLstInstruction::Unwrap => process_unwrap(accounts, data)?,
-
-        // Admin
-        OreLstInstruction::Initialize => process_init(accounts, data)?,
+        OreLstInstruction::Init => process_init(accounts, data)?,
     }
 
     Ok(())

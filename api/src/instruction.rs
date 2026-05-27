@@ -4,21 +4,23 @@ use steel::*;
 #[repr(u8)]
 #[derive(Clone, Copy, Debug, Eq, PartialEq, TryFromPrimitive)]
 pub enum OreLstInstruction {
+    /// Initializes the vault and stORE mint.
+    Init = 0,
+
     /// Claims staking rewards and re-stakes them to compound yield.
     Compound = 1,
+
     /// Burns stORE tokens to withdraw the underlying staked ORE.
     Unwrap = 2,
+
     /// Deposits ORE into the vault and mints stORE tokens.
     Wrap = 3,
-
-    /// Initializes the vault and stORE mint. Admin-only.
-    Initialize = 100,
 }
 
-/// Instruction data for [`OreLstInstruction::Initialize`].
+/// Instruction data for [`OreLstInstruction::Init`].
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Pod, Zeroable)]
-pub struct Initialize {}
+pub struct Init {}
 
 /// Instruction data for [`OreLstInstruction::Compound`].
 #[repr(C)]
@@ -41,7 +43,7 @@ pub struct Wrap {
     pub amount: [u8; 8],
 }
 
+instruction!(OreLstInstruction, Init);
 instruction!(OreLstInstruction, Compound);
-instruction!(OreLstInstruction, Initialize);
 instruction!(OreLstInstruction, Unwrap);
 instruction!(OreLstInstruction, Wrap);
