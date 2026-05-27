@@ -1,7 +1,5 @@
-use ore_stake_api::{
-    consts::MINT_ADDRESS,
-    state::{stake_pda, treasury_pda, vesting_pda},
-};
+use ore_mint_api::consts::MINT_ADDRESS;
+use ore_stake_api::state::{stake_pda, treasury_pda, vesting_pda};
 use solana_program::pubkey::Pubkey;
 use spl_associated_token_account::get_associated_token_address;
 use steel::*;

@@ -1,10 +1,10 @@
 mod compound;
-mod initialize;
+mod init;
 mod unwrap;
 mod wrap;
 
 use compound::*;
-use initialize::*;
+use init::*;
 use unwrap::*;
 use wrap::*;
 
@@ -26,7 +26,7 @@ pub fn process_instruction(
         OreLstInstruction::Unwrap => process_unwrap(accounts, data)?,
 
         // Admin
-        OreLstInstruction::Initialize => process_initialize(accounts, data)?,
+        OreLstInstruction::Initialize => process_init(accounts, data)?,
     }
 
     Ok(())

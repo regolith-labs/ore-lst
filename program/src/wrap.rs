@@ -1,8 +1,6 @@
 use ore_lst_api::prelude::*;
-use ore_stake_api::{
-    consts::MINT_ADDRESS,
-    state::{Stake, Treasury},
-};
+use ore_mint_api::consts::MINT_ADDRESS;
+use ore_stake_api::state::{Stake, Treasury};
 use steel::*;
 
 /// Deposits ORE into stake account and wraps it as stORE.
@@ -21,14 +19,18 @@ pub fn process_wrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResult 
     payer_info.is_signer()?;
     let sender_ore = sender_ore_info.as_associated_token_account(signer_info.key, &MINT_ADDRESS)?;
     ore_mint_info.has_address(&MINT_ADDRESS)?.as_mint()?;
-    let store_mint = store_mint_info.as_mint()?;
+    let store_mint = store_mint_info
+        .has_address(&STORE_MINT_ADDRESS)?
+        .as_mint()?;
     stake_info
         .as_account::<Stake>(&ore_stake_api::ID)?
         .assert(|s| s.authority == *vault_info.key)?;
     stake_tokens_info.as_associated_token_account(stake_info.key, &MINT_ADDRESS)?;
     treasury_info.as_account::<Treasury>(&ore_stake_api::ID)?;
     treasury_tokens_info.as_associated_token_account(treasury_info.key, &MINT_ADDRESS)?;
-    vault_info.as_account_mut::<Vault>(&ore_lst_api::ID)?;
+    vault_info
+        .has_address(&vault_pda().0)?
+        .as_account_mut::<Vault>(&ore_lst_api::ID)?;
     vault_tokens_info.as_associated_token_account(vault_info.key, &MINT_ADDRESS)?;
     system_program.is_program(&system_program::ID)?;
     token_program.is_program(&spl_token::ID)?;
