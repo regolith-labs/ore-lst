@@ -18,8 +18,8 @@ pub fn process_init(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramResult
     store_mint_info
         .has_address(&STORE_MINT_ADDRESS)?
         .as_mint()?;
-    vault_info.is_empty()?.is_writable()?;
-    vault_tokens_info.is_empty()?.is_writable()?;
+    vault_info.has_address(&vault_pda().0)?.is_writable()?;
+    vault_tokens_info.is_writable()?;
     system_program.is_program(&system_program::ID)?;
     token_program.is_program(&spl_token::ID)?;
     associated_token_program.is_program(&spl_associated_token_account::ID)?;
@@ -55,24 +55,32 @@ pub fn process_init(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramResult
     .invoke_signed(&[&[VAULT, &[vault_bump]]])?;
 
     // Open vault.
-    create_program_account::<Vault>(
-        vault_info,
-        system_program,
-        signer_info,
-        &ore_lst_api::ID,
-        &[VAULT],
-    )?;
+    if vault_info.data_is_empty() {
+        create_program_account::<Vault>(
+            vault_info,
+            system_program,
+            signer_info,
+            &ore_lst_api::ID,
+            &[VAULT],
+        )?;
+    } else {
+        vault_info.as_account::<Vault>(&ore_lst_api::ID)?;
+    }
 
     // Open vault token account.
-    create_associated_token_account(
-        signer_info,
-        vault_info,
-        vault_tokens_info,
-        ore_mint_info,
-        system_program,
-        token_program,
-        associated_token_program,
-    )?;
+    if vault_tokens_info.data_is_empty() {
+        create_associated_token_account(
+            signer_info,
+            vault_info,
+            vault_tokens_info,
+            ore_mint_info,
+            system_program,
+            token_program,
+            associated_token_program,
+        )?;
+    } else {
+        vault_tokens_info.as_associated_token_account(vault_info.key, &MINT_ADDRESS)?;
+    }
 
     // Create stake account.
     invoke_signed(
