@@ -311,10 +311,10 @@
             "name": "initialize",
             "discriminant": {
                 "type": "u8",
-                "value": 100
+                "value": 0
             },
             "docs": [
-                "Initializes the program. Admin only."
+                "Initialize the program."
             ],
             "accounts": [
                 {
@@ -434,8 +434,8 @@
     "errors": [
         {
             "code": 0,
-            "name": "Dummy",
-            "msg": "Dummy"
+            "name": "OutputZero",
+            "msg": "Output amount is zero"
         }
     ],
     "events": []
