@@ -3,6 +3,7 @@ use ore_lst_api::{
     state::{vault_pda, Vault},
 };
 use ore_mint_api::consts::MINT_ADDRESS;
+use ore_stake_api::state::Stake;
 use steel::*;
 
 /// Initialize the program.
@@ -83,25 +84,31 @@ pub fn process_init(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramResult
     }
 
     // Create stake account.
-    invoke_signed(
-        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, 0, 0, 0),
-        &[
-            vault_info.clone(),
-            signer_info.clone(),
-            ore_mint_info.clone(),
-            vault_tokens_info.clone(),
-            stake_info.clone(),
-            stake_tokens_info.clone(),
-            treasury_info.clone(),
-            vesting_info.clone(),
-            system_program.clone(),
-            token_program.clone(),
-            associated_token_program.clone(),
-            ore_stake_program.clone(),
-        ],
-        &ore_lst_api::ID,
-        &[VAULT],
-    )?;
+    if stake_info.data_is_empty() {
+        invoke_signed(
+            &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, 0, 0, 0),
+            &[
+                vault_info.clone(),
+                signer_info.clone(),
+                ore_mint_info.clone(),
+                vault_tokens_info.clone(),
+                stake_info.clone(),
+                stake_tokens_info.clone(),
+                treasury_info.clone(),
+                vesting_info.clone(),
+                system_program.clone(),
+                token_program.clone(),
+                associated_token_program.clone(),
+                ore_stake_program.clone(),
+            ],
+            &ore_lst_api::ID,
+            &[VAULT],
+        )?;
+    } else {
+        stake_info
+            .as_account::<Stake>(&ore_stake_api::ID)?
+            .assert(|s| s.authority == *vault_info.key)?;
+    }
 
     Ok(())
 }
