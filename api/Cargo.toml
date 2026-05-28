@@ -10,9 +10,7 @@ repository.workspace = true
 keywords.workspace = true
 
 [dependencies]
-base64.workspace = true
 bytemuck.workspace = true
-const-crypto.workspace = true
 mpl-token-metadata = "5.1.1"
 num_enum.workspace = true
 ore-mint-api.workspace = true

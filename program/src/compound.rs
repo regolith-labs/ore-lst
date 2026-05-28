@@ -21,7 +21,7 @@ pub fn process_compound(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramRe
     treasury_tokens_info.as_associated_token_account(treasury_info.key, &MINT_ADDRESS)?;
     vault_info
         .has_address(&vault_pda().0)?
-        .as_account_mut::<Vault>(&ore_lst_api::ID)?;
+        .as_account::<Vault>(&ore_lst_api::ID)?;
     vault_tokens_info.as_associated_token_account(vault_info.key, &MINT_ADDRESS)?;
     system_program.is_program(&system_program::ID)?;
     token_program.is_program(&spl_token::ID)?;
