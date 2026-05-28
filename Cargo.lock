@@ -2355,7 +2355,6 @@ dependencies = [
  "solana-program",
  "spl-associated-token-account",
  "spl-token 4.0.2",
- "spl-token-2022 7.0.0",
  "steel",
  "thiserror 1.0.69",
 ]
