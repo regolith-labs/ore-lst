@@ -36,7 +36,6 @@ solana-sdk = "^2.1"
 solana-security-txt = "1.1.2"
 spl-pod = "=0.5.1"
 spl-token = { version = "^4", features = ["no-entrypoint"] }
-spl-token-2022 = "^7"
 spl-token-metadata-interface = "^0.6"
 spl-associated-token-account = { version = "^6", features = [ "no-entrypoint" ] } 
 steel = { features = ["spl"], version = "4.0.3" }
