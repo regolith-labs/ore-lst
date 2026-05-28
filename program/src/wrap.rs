@@ -101,6 +101,9 @@ pub fn process_wrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResult 
     // Deposit ORE tokens in stake account.
     let amount = sender_ore.amount().min(amount);
     let mint_amount = Vault::calculate_mint_amount(amount, stake.balance, store_mint.supply());
+    if amount > 0 && mint_amount == 0 {
+        return Err(StoreError::OutputZero.into());
+    }
     transfer(
         signer_info,
         sender_ore_info,

@@ -4,9 +4,8 @@ use steel::*;
 #[derive(Debug, Error, Clone, Copy, PartialEq, Eq, IntoPrimitive)]
 #[repr(u32)]
 pub enum StoreError {
-    /// Placeholder error variant.
-    #[error("Dummy")]
-    Dummy = 0,
+    #[error("Output amount is zero")]
+    OutputZero = 0,
 }
 
 error!(StoreError);

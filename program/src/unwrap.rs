@@ -103,6 +103,9 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
     let amount = sender_store.amount().min(amount);
     let redeemable_amount =
         Vault::calculate_redeem_amount(amount, stake.balance, store_mint.supply());
+    if amount > 0 && redeemable_amount == 0 {
+        return Err(StoreError::OutputZero.into());
+    }
     burn(
         sender_store_info,
         store_mint_info,
