@@ -2328,7 +2328,7 @@ dependencies = [
 
 [[package]]
 name = "ore-cli"
-version = "0.2.5"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "bincode",
@@ -2344,7 +2344,7 @@ dependencies = [
 
 [[package]]
 name = "ore-lst-api"
-version = "0.2.5"
+version = "0.3.0"
 dependencies = [
  "bytemuck",
  "mpl-token-metadata",
@@ -2361,7 +2361,7 @@ dependencies = [
 
 [[package]]
 name = "ore-lst-program"
-version = "0.2.5"
+version = "0.3.0"
 dependencies = [
  "mpl-token-metadata",
  "ore-lst-api",
@@ -2391,9 +2391,9 @@ dependencies = [
 
 [[package]]
 name = "ore-stake-api"
-version = "0.2.5"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "31f3c6db593cb86a3cd519960d242b9f8cbbd3c9738f66d77811e17ce095de5b"
+checksum = "e4e973cfce4f431965f084fc1a291aa3290705692d4f5a915abae8f1283dc0c3"
 dependencies = [
  "bytemuck",
  "num_enum",
