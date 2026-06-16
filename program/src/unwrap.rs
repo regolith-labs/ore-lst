@@ -78,10 +78,10 @@ pub fn process_unwrap(accounts: &[AccountInfo<'_>], data: &[u8]) -> ProgramResul
 
     // Compound yield into vault.
     invoke_signed(
-        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, u64::MAX, 0, 0),
+        &ore_stake_api::sdk::deposit(*vault_info.key, *payer_info.key, u64::MAX, 0, 0),
         &[
             vault_info.clone(),
-            signer_info.clone(),
+            payer_info.clone(),
             ore_mint_info.clone(),
             vault_tokens_info.clone(),
             stake_info.clone(),
