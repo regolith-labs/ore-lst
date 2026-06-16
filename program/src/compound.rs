@@ -6,12 +6,13 @@ use steel::*;
 /// Compounds yield into vault.
 pub fn process_compound(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramResult {
     // Load accounts.
-    let [signer_info, ore_mint_info, stake_info, stake_tokens_info, treasury_info, treasury_tokens_info, vault_info, vault_tokens_info, vesting_info, system_program, token_program, associated_token_program, ore_stake_program] =
+    let [signer_info, payer_info, ore_mint_info, stake_info, stake_tokens_info, treasury_info, treasury_tokens_info, vault_info, vault_tokens_info, vesting_info, system_program, token_program, associated_token_program, ore_stake_program] =
         accounts
     else {
         return Err(ProgramError::NotEnoughAccountKeys);
     };
     signer_info.is_signer()?;
+    payer_info.is_signer()?;
     ore_mint_info.has_address(&MINT_ADDRESS)?.as_mint()?;
     stake_info
         .as_account::<Stake>(&ore_stake_api::ID)?
@@ -50,10 +51,10 @@ pub fn process_compound(accounts: &[AccountInfo<'_>], _data: &[u8]) -> ProgramRe
 
     // Compound yield into vault.
     invoke_signed(
-        &ore_stake_api::sdk::deposit(*vault_info.key, *signer_info.key, u64::MAX, 0, 0),
+        &ore_stake_api::sdk::deposit(*vault_info.key, *payer_info.key, u64::MAX, 0, 0),
         &[
             vault_info.clone(),
-            signer_info.clone(),
+            payer_info.clone(),
             ore_mint_info.clone(),
             vault_tokens_info.clone(),
             stake_info.clone(),
