@@ -29,7 +29,7 @@ solana-sdk = "^2.1"
 solana-security-txt = "1.1.2"
 spl-token = { version = "^4", features = ["no-entrypoint"] }
 spl-associated-token-account = { version = "^6", features = [ "no-entrypoint" ] } 
-steel = { features = ["spl"], version = "4.0.3" }
+steel = { features = ["spl"], version = "4.0.8" }
 thiserror = "1.0.57"
 tokio = { version = "1.37.0", features = ["full"] }
 
