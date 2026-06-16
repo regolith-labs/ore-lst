@@ -3,7 +3,7 @@ resolver = "2"
 members = ["api", "program", "cli"]
 
 [workspace.package]
-version = "0.3.0"
+version = "0.3.1"
 edition = "2021"
 license = "Apache-2.0"
 homepage = "https://ore.supply"
@@ -29,7 +29,7 @@ solana-sdk = "^2.1"
 solana-security-txt = "1.1.2"
 spl-token = { version = "^4", features = ["no-entrypoint"] }
 spl-associated-token-account = { version = "^6", features = [ "no-entrypoint" ] } 
-steel = { features = ["spl"], version = "4.0.8" }
+steel = { features = ["spl"], version = "4.0.9" }
 thiserror = "1.0.57"
 tokio = { version = "1.37.0", features = ["full"] }
 
