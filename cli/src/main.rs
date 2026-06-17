@@ -37,6 +37,10 @@ async fn main() {
         "rate" => {
             rate(&rpc).await.unwrap();
         }
+        "vault" => {
+            let vault_address = ore_lst_api::state::vault_pda().0;
+            println!("{}", vault_address);
+        }
         _ => panic!("Invalid command"),
     };
 }
